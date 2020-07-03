@@ -1,0 +1,4 @@
+[mysqld]
+# Because AWS doesn't support caching_sha2_password now (2019-10-19)
+# @see https://taker.hatenablog.com/entry/2019/10/19/152007
+default_authentication_plugin=mysql_native_password

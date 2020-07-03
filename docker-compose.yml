@@ -1,0 +1,27 @@
+---
+version: '3.8'
+services:
+  database:
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: service
+      MYSQL_USER: app
+      MYSQL_PASSWORD: ${DATABASE_USER_PASSWORD}
+    image: mysql:8
+    restart: always
+    volumes:
+      - ./mysql_conf.d:/etc/mysql/conf.d
+  web:
+    build:
+      context: dockerfile-rails
+    container_name: web
+    depends_on:
+      - database
+    environment:
+      DATABASE_USER_PASSWORD: ${DATABASE_USER_PASSWORD}
+    image: rails:latest
+    ports:
+      - target: 3000
+        published: 80
+    user: "${UID-root}:${GID-root}"

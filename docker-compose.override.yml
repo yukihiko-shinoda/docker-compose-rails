@@ -1,0 +1,8 @@
+---
+version: '3.8'
+services:
+  web:
+    # command: bash
+    # tty: "true"
+    volumes:
+      -  ${PATH_TO_PROJECT-.}:/workspace
